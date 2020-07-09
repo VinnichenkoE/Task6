@@ -1,25 +1,26 @@
 package com.vinnichenko.task6.entity;
 
+import com.vinnichenko.task6.util.IdGenerator;
+
 import java.util.List;
-import java.util.UUID;
 
 public class Book {
 
-    private final UUID id;
+    private String id;
     private String title;
     private List<Author> authors;
     private int numberPages;
     private String typography;
 
     public Book(String title, List<Author> authors, int numberPages, String typography) {
-        this.id = UUID.randomUUID();
+        this.id = IdGenerator.generateId();
         this.title = title;
         this.authors = authors;
         this.numberPages = numberPages;
         this.typography = typography;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 

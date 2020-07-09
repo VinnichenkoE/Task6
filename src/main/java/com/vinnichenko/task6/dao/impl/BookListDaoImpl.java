@@ -3,21 +3,22 @@ package com.vinnichenko.task6.dao.impl;
 import com.vinnichenko.task6.dao.BookListDao;
 import com.vinnichenko.task6.entity.Author;
 import com.vinnichenko.task6.entity.Book;
+import com.vinnichenko.task6.entity.Warehouse;
 import com.vinnichenko.task6.exception.DaoException;
 import com.vinnichenko.task6.exception.WarehouseException;
-import com.vinnichenko.task6.warehouse.Warehouse;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class BookListDaoImpl implements BookListDao {
     @Override
     public boolean addBook(Book book) throws DaoException {
-        Warehouse warehouse = Warehouse.getInstance();
+        if (book == null) {
+            throw new DaoException("such book does not exist");
+        }
         boolean result;
         try {
-            result = warehouse.addBook(book);
+            result = Warehouse.getInstance().addBook(book);
         } catch (WarehouseException e) {
             throw new DaoException("such book already exist", e);
         }
@@ -26,9 +27,11 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public void removeBook(Book book) throws DaoException {
-        Warehouse warehouse = Warehouse.getInstance();
+        if (book == null) {
+            throw new DaoException("such book does not exist");
+        }
         try {
-            warehouse.removeBook(book);
+            Warehouse.getInstance().removeBook(book);
         } catch (WarehouseException e) {
             throw new DaoException("no such book in repository", e);
         }
@@ -36,11 +39,9 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public Optional<Book> findById(String id) {
-        Warehouse warehouse = Warehouse.getInstance();
-        List<Book> books = warehouse.getRepository();
-        UUID uuid = UUID.fromString(id);
+        List<Book> books = Warehouse.getInstance().getRepository();
         for (Book book : books) {
-            if (book.getId().equals(uuid)) {
+            if (book.getId().equals(id)) {
                 return Optional.of(book);
             }
         }
@@ -49,32 +50,42 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> findByTitle(String title) {
-        return null;
+        List<Book> books = Warehouse.getInstance().getRepository();
+        return books.stream().filter(book -> book.getTitle().equals(title)).collect(Collectors.toList());
     }
 
     @Override
     public List<Book> findByAuthor(Author author) {
-        return null;
+        List<Book> books = Warehouse.getInstance().getRepository();
+        return books.stream().filter(book -> book.getAuthors().contains(author)).collect(Collectors.toList());
     }
 
     @Override
     public List<Book> findByNumberPages(int numberPages) {
-        return null;
+        List<Book> books = Warehouse.getInstance().getRepository();
+        return books.stream().filter(book -> book.getNumberPages() == numberPages).collect(Collectors.toList());
     }
 
     @Override
     public List<Book> findByTypography(String typography) {
-        return null;
+        List<Book> books = Warehouse.getInstance().getRepository();
+        return books.stream().filter(book -> book.getTypography().equals(typography)).collect(Collectors.toList());
     }
 
     @Override
     public List<Book> sortBooksById() {
-        return null;
+        List<Book> books = Warehouse.getInstance().getRepository();
+        List<Book> copy = new ArrayList<>(books);
+        copy.sort(Comparator.comparing(book -> book.getId()));
+        return copy;
     }
 
     @Override
     public List<Book> sortBooksByTitle() {
-        return null;
+        List<Book> books = Warehouse.getInstance().getRepository();
+        List<Book> copy = new ArrayList<>(books);
+        copy.sort(Comparator.comparing(book -> book.getTitle()));
+        return copy;
     }
 
     @Override
@@ -84,11 +95,17 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> sortBooksByPages() {
-        return null;
+        List<Book> books = Warehouse.getInstance().getRepository();
+        List<Book> copy = new ArrayList<>(books);
+        copy.sort(Comparator.comparing(book -> book.getNumberPages()));
+        return copy;
     }
 
     @Override
     public List<Book> sortBooksByTypography() {
-        return null;
+        List<Book> books = Warehouse.getInstance().getRepository();
+        List<Book> copy = new ArrayList<>(books);
+        copy.sort(Comparator.comparing(book -> book.getTypography()));
+        return copy;
     }
 }

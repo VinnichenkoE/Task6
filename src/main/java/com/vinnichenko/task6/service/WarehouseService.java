@@ -12,4 +12,6 @@ public interface WarehouseService {
     boolean addBook(String title, List<Author> author, int numberPages, String typography) throws ServiceException;
 
     Optional<Book> findBYId(String id) throws ServiceException;
+
+    void removeBook(String id) throws ServiceException;
 }

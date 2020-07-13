@@ -14,12 +14,12 @@ import java.util.Optional;
 
 public class WarehouseServiceImpl implements WarehouseService {
     @Override
-    public boolean addBook(String title, List<Author> author, int numberPages, String typography) throws ServiceException {
+    public boolean addBook(String title, List<Author> authors, int numberPages, String typography) throws ServiceException {
         BookValidator bookValidator = new BookValidator();
         if (!bookValidator.isNumberPagesValid(numberPages) || !bookValidator.isTitleValid(title)) {
             throw new ServiceException("incorrect parameters");
         }
-        Book book = new Book(title, author, numberPages, typography);
+        Book book = new Book(title, authors, numberPages, typography);
         BookListDao bookListDao = new BookListDaoImpl();
         boolean result;
         try {
@@ -38,5 +38,23 @@ public class WarehouseServiceImpl implements WarehouseService {
         }
         BookListDao bookListDao = new BookListDaoImpl();
         return bookListDao.findById(id);
+    }
+
+    @Override
+    public void removeBook(String id) throws ServiceException {
+        BookValidator bookValidator = new BookValidator();
+        if (!bookValidator.isIdValid(id)) {
+            throw new ServiceException("incorrect value of id");
+        }
+        BookListDao bookListDao = new BookListDaoImpl();
+        if (!bookListDao.findById(id).isPresent()) {
+            throw new ServiceException("no such book in warehouse");
+        }
+        Book book = bookListDao.findById(id).get();
+        try {
+            bookListDao.removeBook(book);
+        } catch (DaoException e) {
+            throw new ServiceException("can not remove book", e);
+        }
     }
 }

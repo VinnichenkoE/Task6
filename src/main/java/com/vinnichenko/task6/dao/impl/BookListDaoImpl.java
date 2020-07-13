@@ -13,27 +13,21 @@ import java.util.stream.Collectors;
 public class BookListDaoImpl implements BookListDao {
     @Override
     public boolean addBook(Book book) throws DaoException {
-        if (book == null) {
-            throw new DaoException("such book does not exist");
-        }
         boolean result;
         try {
             result = Warehouse.getInstance().addBook(book);
         } catch (WarehouseException e) {
-            throw new DaoException("such book already exist", e);
+            throw new DaoException("can not add book", e);
         }
         return result;
     }
 
     @Override
     public void removeBook(Book book) throws DaoException {
-        if (book == null) {
-            throw new DaoException("such book does not exist");
-        }
         try {
             Warehouse.getInstance().removeBook(book);
         } catch (WarehouseException e) {
-            throw new DaoException("no such book in repository", e);
+            throw new DaoException("can not remove book", e);
         }
     }
 

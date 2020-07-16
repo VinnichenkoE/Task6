@@ -1,18 +1,19 @@
-package com.vinnichenko.task6.entity;
+package com.vinnichenko.task6.model.entity;
 
 import com.vinnichenko.task6.util.IdGenerator;
 
 import java.util.List;
+import java.util.Set;
 
 public class Book {
 
     private String id;
     private String title;
-    private List<Author> authors;
+    private Set<Author> authors;
     private int numberPages;
     private String typography;
 
-    public Book(String title, List<Author> authors, int numberPages, String typography) {
+    public Book(String title, Set<Author> authors, int numberPages, String typography) {
         this.id = IdGenerator.generateId();
         this.title = title;
         this.authors = authors;
@@ -28,7 +29,7 @@ public class Book {
         return title;
     }
 
-    public List<Author> getAuthors() {
+    public Set<Author> getAuthors() {
         return authors;
     }
 

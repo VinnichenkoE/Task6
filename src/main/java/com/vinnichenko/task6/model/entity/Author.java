@@ -1,6 +1,8 @@
-package com.vinnichenko.task6.entity;
+package com.vinnichenko.task6.model.entity;
 
-public class Author {
+import org.jetbrains.annotations.NotNull;
+
+public class Author implements Comparable<Author> {
 
     private String firstName;
     private String lastName;
@@ -47,5 +49,13 @@ public class Author {
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int compareTo(@NotNull Author o) {
+        if( lastName.compareTo(o.getLastName()) == 0) {
+            return firstName.compareTo(o.getFirstName());
+        }
+        return lastName.compareTo(o.getLastName());
     }
 }

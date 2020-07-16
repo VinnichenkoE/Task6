@@ -1,7 +1,7 @@
-package com.vinnichenko.task6.dao;
+package com.vinnichenko.task6.model.dao;
 
-import com.vinnichenko.task6.entity.Author;
-import com.vinnichenko.task6.entity.Book;
+import com.vinnichenko.task6.model.entity.Author;
+import com.vinnichenko.task6.model.entity.Book;
 import com.vinnichenko.task6.exception.DaoException;
 
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.Optional;
 
 public interface BookListDao {
 
-    boolean addBook(Book book) throws DaoException;
+    boolean add(Book book) throws DaoException;
 
-    void removeBook(Book book) throws DaoException;
+    void remove(Book book) throws DaoException;
 
     Optional<Book> findById(String id);
 

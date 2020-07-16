@@ -1,4 +1,4 @@
-package com.vinnichenko.task6.entity;
+package com.vinnichenko.task6.model.entity;
 
 import com.vinnichenko.task6.exception.WarehouseException;
 
@@ -11,11 +11,14 @@ public class Warehouse {
     private static final Warehouse INSTANCE = new Warehouse();
     private List<Book> books = new ArrayList<>();
 
+    private Warehouse() {
+    }
+
     public static Warehouse getInstance() {
         return INSTANCE;
     }
 
-    public List<Book> getRepository() {
+    public List<Book> getBooks() {
         return Collections.unmodifiableList(books);
     }
 
@@ -37,11 +40,10 @@ public class Warehouse {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Warehouse{");
         sb.append("books{");
-        for (Book book: books) {
+        for (Book book : books) {
             sb.append(book.toString()).append("; ");
         }
         sb.append('}');
         return sb.toString();
     }
 }
-

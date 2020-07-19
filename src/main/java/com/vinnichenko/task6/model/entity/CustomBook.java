@@ -2,10 +2,9 @@ package com.vinnichenko.task6.model.entity;
 
 import com.vinnichenko.task6.util.IdGenerator;
 
-import java.util.List;
 import java.util.Set;
 
-public class Book {
+public class CustomBook {
 
     private String id;
     private String title;
@@ -13,8 +12,18 @@ public class Book {
     private int numberPages;
     private String typography;
 
-    public Book(String title, Set<Author> authors, int numberPages, String typography) {
+    public CustomBook(String title, Set<Author> authors,
+                      int numberPages, String typography) {
         this.id = IdGenerator.generateId();
+        this.title = title;
+        this.authors = authors;
+        this.numberPages = numberPages;
+        this.typography = typography;
+    }
+
+    public CustomBook(String id, String title, Set<Author> authors,
+                      int numberPages, String typography) {
+        this.id = id;
         this.title = title;
         this.authors = authors;
         this.numberPages = numberPages;
@@ -49,21 +58,24 @@ public class Book {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Book book = (Book) o;
-        if (numberPages != book.numberPages) {
+        CustomBook customBook = (CustomBook) o;
+        if (numberPages != customBook.numberPages) {
             return false;
         }
-        if (!id.equals(book.id)) {
+        if (!id.equals(customBook.id)) {
             return false;
         }
-        if (title != null ? !title.equals(book.title) : book.title != null) {
+        if (title != null ? !title.equals(customBook.title)
+                : customBook.title != null) {
             return false;
         }
 
-        if (authors != null ? !authors.equals(book.authors) : book.authors != null) {
+        if (authors != null ? !authors.equals(customBook.authors)
+                : customBook.authors != null) {
             return false;
         }
-        return typography != null ? typography.equals(book.typography) : book.typography == null;
+        return typography != null ? typography.equals(customBook.typography)
+                : customBook.typography == null;
     }
 
     @Override

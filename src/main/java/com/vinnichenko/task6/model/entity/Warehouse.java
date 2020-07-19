@@ -9,7 +9,7 @@ import java.util.List;
 public class Warehouse {
 
     private static final Warehouse INSTANCE = new Warehouse();
-    private List<Book> books = new ArrayList<>();
+    private List<CustomBook> customBooks = new ArrayList<>();
 
     private Warehouse() {
     }
@@ -18,30 +18,30 @@ public class Warehouse {
         return INSTANCE;
     }
 
-    public List<Book> getBooks() {
-        return Collections.unmodifiableList(books);
+    public List<CustomBook> getCustomBooks() {
+        return Collections.unmodifiableList(customBooks);
     }
 
-    public boolean addBook(Book book) throws WarehouseException {
-        if (books.contains(book)) {
+    public boolean addBook(CustomBook customBook) throws WarehouseException {
+        if (customBooks.contains(customBook)) {
             throw new WarehouseException("such book already exist");
         }
-        return books.add(book);
+        return customBooks.add(customBook);
     }
 
-    public void removeBook(Book book) throws WarehouseException {
-        if (!books.contains(book)) {
-            throw new WarehouseException("no such book in repository");
+    public void removeBook(CustomBook customBook) throws WarehouseException {
+        if (!customBooks.contains(customBook)) {
+            throw new WarehouseException("no such book in warehouse");
         }
-        books.remove(book);
+        customBooks.remove(customBook);
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Warehouse{");
         sb.append("books{");
-        for (Book book : books) {
-            sb.append(book.toString()).append("; ");
+        for (CustomBook customBook : customBooks) {
+            sb.append(customBook.toString()).append("; ");
         }
         sb.append('}');
         return sb.toString();

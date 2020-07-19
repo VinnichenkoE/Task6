@@ -5,9 +5,20 @@ import com.vinnichenko.task6.controller.command.CommandProvider;
 
 import java.util.Map;
 
-public class WarehouseController {
+public class BookController {
+
+    private static final BookController INSTANCE = new BookController();
+
+    private BookController() {
+    }
+
+    public static BookController getInstance() {
+        return INSTANCE;
+    }
+
     public Map<String, String> executeTask(Map<String, String> parameters) {
-        String commandName = parameters.get("commandName");
+        String commandName = parameters
+                .get(RequestParameters.PARAMETER_COMMAND_NAME);
         CommandProvider provider = new CommandProvider();
         Command command = provider.getCommand(commandName);
         return command.execute(parameters);

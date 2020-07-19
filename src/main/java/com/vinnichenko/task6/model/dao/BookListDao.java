@@ -1,7 +1,7 @@
 package com.vinnichenko.task6.model.dao;
 
 import com.vinnichenko.task6.model.entity.Author;
-import com.vinnichenko.task6.model.entity.Book;
+import com.vinnichenko.task6.model.entity.CustomBook;
 import com.vinnichenko.task6.exception.DaoException;
 
 import java.util.List;
@@ -9,27 +9,27 @@ import java.util.Optional;
 
 public interface BookListDao {
 
-    boolean add(Book book) throws DaoException;
+    boolean add(CustomBook customBook) throws DaoException;
 
-    void remove(Book book) throws DaoException;
+    void remove(CustomBook customBook) throws DaoException;
 
-    Optional<Book> findById(String id);
+    Optional<CustomBook> findById(String id);
 
-    List<Book> findByTitle(String title);
+    List<CustomBook> findByTitle(String title);
 
-    List<Book> findByAuthor(Author author);
+    List<CustomBook> findByAuthor(Author author);
 
-    List<Book> findByNumberPages(int numberPages);
+    List<CustomBook> findByNumberPages(int numberPages);
 
-    List<Book> findByTypography(String typography);
+    List<CustomBook> findByTypography(String typography);
 
-    List<Book> sortBooksById();
+    List<CustomBook> sortBooksById();
 
-    List<Book> sortBooksByTitle();
+    List<CustomBook> sortBooksByTitle();
 
-    List<Book> sortBooksByAuthor();
+    List<CustomBook> sortBooksByAuthor();
 
-    List<Book> sortBooksByPages();
+    List<CustomBook> sortBooksByPages();
 
-    List<Book> sortBooksByTypography();
+    List<CustomBook> sortBooksByTypography();
 }
